@@ -14,4 +14,5 @@ class PurchaseResponse extends FetchTransactionResponse
     {
         return false;
     }
+
 }

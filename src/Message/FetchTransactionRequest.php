@@ -1,11 +1,11 @@
 <?php
 
-namespace Omnipay\Mollie\Message;
+namespace Omnipay\Paynl\Message;
 
 /**
- * Mollie Fetch Transaction Request
+ * Paynl Fetch Transaction Request
  *
- * @method \Omnipay\Mollie\Message\FetchTransactionResponse send()
+ * @method \Omnipay\Paynl\Message\FetchTransactionResponse send()
  */
 class FetchTransactionRequest extends AbstractRequest
 {

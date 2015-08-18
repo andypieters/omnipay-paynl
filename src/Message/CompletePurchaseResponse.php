@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Mollie\Message;
+namespace Omnipay\Paynl\Message;
 
 class CompletePurchaseResponse extends FetchTransactionResponse
 {

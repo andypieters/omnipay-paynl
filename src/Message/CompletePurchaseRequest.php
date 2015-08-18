@@ -16,13 +16,18 @@ class CompletePurchaseRequest extends FetchTransactionRequest
         $this->validate('apitoken');
 
         $data = array();
-        $data['id'] = $this->getTransactionReference();
+        $data['transactionId'] = $this->getTransactionReference();
 
-        if (!isset($data['id'])) {
-            $data['id'] = $this->httpRequest->request->get('id');
+        
+        if (empty($data['transactionId'])) {
+            $data['transactionId'] = $_GET['orderId'];
         }
+        if (empty($data['transactionId'])) {
+            $data['transactionId'] = $_GET['order_id'];
+        }
+        
 
-        if (empty($data['id'])) {
+        if (empty($data['transactionId'])) {
             throw new InvalidRequestException("The transactionReference parameter is required");
         }
 
@@ -31,7 +36,7 @@ class CompletePurchaseRequest extends FetchTransactionRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->sendRequest('GET', '/payments/' . $data['id']);
+        $httpResponse = $this->sendRequest('POST', 'transaction/info' , $data);
 
         return $this->response = new CompletePurchaseResponse($this, $httpResponse->json());
     }

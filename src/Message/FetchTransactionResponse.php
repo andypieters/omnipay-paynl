@@ -11,7 +11,7 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function isRedirect()
     {
-        return isset($this->data['links']['paymentUrl']);
+        return isset($this->data['transaction']['paymentURL']);
     }
 
     /**
@@ -20,7 +20,7 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
     public function getRedirectUrl()
     {
         if ($this->isRedirect()) {
-            return $this->data['links']['paymentUrl'];
+            return $this->data['transaction']['paymentURL'];
         }
     }
 
@@ -53,7 +53,7 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function isOpen()
     {
-        return isset($this->data['status']) && 'open' === $this->data['status'];
+        return isset($this->data['paymentDetails']['stateName']) && 'PENDING' === $this->data['paymentDetails']['stateName'];
     }
 
     /**
@@ -61,7 +61,7 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function isCancelled()
     {
-        return isset($this->data['status']) && 'cancelled' === $this->data['status'];
+        return isset($this->data['paymentDetails']['stateName']) && 'CANCEL' === $this->data['paymentDetails']['stateName'];
     }
 
     /**
@@ -69,23 +69,23 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function isPaid()
     {
-        return isset($this->data['status']) && 'paid' === $this->data['status'];
+        return isset($this->data['paymentDetails']['stateName']) && 'PAID' === $this->data['paymentDetails']['stateName'];
     }
 
     /**
      * @return boolean
      */
-    public function isPaidOut()
-    {
-        return isset($this->data['status']) && 'paidout' === $this->data['status'];
-    }
+//    public function isPaidOut()
+//    {
+//        return isset($this->data['status']) && 'paidout' === $this->data['status'];
+//    }
 
     /**
      * @return boolean
      */
     public function isExpired()
     {
-        return isset($this->data['status']) && 'expired' === $this->data['status'];
+        return isset($this->data['paymentDetails']['stateName']) && 'EXPIRED' === $this->data['paymentDetails']['stateName'];
     }
 
     /**
@@ -103,8 +103,8 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function getStatus()
     {
-        if (isset($this->data['status'])) {
-            return $this->data['status'];
+        if (isset($this->data['paymentDetails']['stateName'])) {
+            return $this->data['paymentDetails']['stateName'];
         }
     }
 
@@ -113,8 +113,8 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function getAmount()
     {
-        if (isset($this->data['amount'])) {
-            return $this->data['amount'];
+        if (isset($this->data['paymentDetails']['paidAmount'])) {
+            return $this->data['paymentDetails']['paidAmount'];
         }
     }
 }

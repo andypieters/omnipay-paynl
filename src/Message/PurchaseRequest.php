@@ -9,13 +9,19 @@ namespace Omnipay\Paynl\Message;
  */
 class PurchaseRequest extends AbstractRequest {
 
+   
+    
     public function getData() {
         $this->validate('apitoken', 'serviceId', 'amount', 'description', 'returnUrl');
 
         $data = array();
+        
+        
+        
         $data['amount'] = round($this->getAmount() * 100);
         $data['description'] = $this->getDescription();
         $data['finishUrl'] = $this->getReturnUrl();
+        $data['ipAddress'] = $this->getClientIp();
         if ($this->getPaymentMethod()) {
             $data['paymentOptionId'] = $this->getPaymentMethod();
         }
