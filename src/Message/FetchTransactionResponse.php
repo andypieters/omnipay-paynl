@@ -93,8 +93,8 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function getTransactionReference()
     {
-        if (isset($this->data['id'])) {
-            return $this->data['id'];
+        if (isset($this->data['transaction']['transactionId'])) {
+            return $this->data['transaction']['transactionId'];
         }
     }
 
