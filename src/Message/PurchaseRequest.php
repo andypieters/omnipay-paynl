@@ -36,6 +36,8 @@ class PurchaseRequest extends AbstractRequest {
             $data['transaction']['orderExchangeUrl'] = $this->getNotifyUrl();
         }
 
+        $data['testMode'] = $this->getTestMode() ? 1 : 0;
+
         return $data;
     }
 
