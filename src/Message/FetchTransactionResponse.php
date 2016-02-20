@@ -114,7 +114,7 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
     public function getAmount()
     {
         if (isset($this->data['paymentDetails']['paidAmount'])) {
-            return $this->data['paymentDetails']['paidAmount'];
+            return $this->data['paymentDetails']['paidAmount'] / 100;
         }
     }
 }
