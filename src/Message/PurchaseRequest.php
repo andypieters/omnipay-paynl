@@ -9,6 +9,7 @@ namespace Omnipay\Paynl\Message;
  */
 class PurchaseRequest extends AbstractRequest {
 
+    private $addressRegex = '/^(\D+)([0-9]+).*$/';
    
     
     public function getData() {
@@ -34,6 +35,43 @@ class PurchaseRequest extends AbstractRequest {
 
         if ($this->getNotifyUrl()) {
             $data['transaction']['orderExchangeUrl'] = $this->getNotifyUrl();
+        }
+
+        if ($card = $this->getCard()) {
+            $firstLetterInWord = function($word) {
+                return strtoupper(substr($word, 0, 1));
+            };
+
+            $initials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getFirstName())))) . '.';
+            $invoiceInitials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getBillingFirstName())))) . '.';
+
+            $addressParts = $invoiceAddressParts = [];
+            preg_match($this->addressRegex, $card->getAddress1(), $addressParts);
+            preg_match($this->addressRegex, $card->getBillingAddress1(), $invoiceAddressParts);
+
+            $data['enduser'] = array(
+                'initials' => $initials,
+                'lastName' => $card->getLastName(),
+                'gender' => $card->getGender(), // could be problematic, there is no specification as to how a gender is passed to credit card objects
+                'dob' => $card->getBirthday('d-m-Y'),
+                'phoneNumber' => $card->getPhone(),
+                'emailAddress' => $card->getEmail(),
+                'address' => array(
+                    'streetName' => trim($addressParts[1]),
+                    'streetNumber' => $addressParts[2],
+                    'zipCode' => $card->getPostcode(),
+                    'city' => $card->getCity(),
+                    'countryCode' => $card->getCountry(),
+                ),
+                'invoiceAddress' => array(
+                    'initials' => $invoiceInitials,
+                    'lastName' => $card->getBillingLastName(),
+                    'streetName' => trim($invoiceAddressParts[1]),
+                    'streetNumber' => $invoiceAddressParts[2],
+                    'zipCode' => $card->getBillingPostcode(),
+                    'countryCode' => $card->getBillingCountry()
+                )
+            );
         }
 
         $data['testMode'] = $this->getTestMode() ? 1 : 0;
