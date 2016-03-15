@@ -9,7 +9,7 @@ namespace Omnipay\Paynl\Message;
  */
 class PurchaseRequest extends AbstractRequest {
 
-    private $addressRegex = '/^(\D+)([0-9]+).*$/';
+    private $addressRegex = '#^([a-z0-9 [:punct:]\']*) ([0-9]{1,5})([a-z0-9 \-/]{0,})$#i';
    
     
     public function getData() {
@@ -57,8 +57,8 @@ class PurchaseRequest extends AbstractRequest {
                 'phoneNumber' => $card->getPhone(),
                 'emailAddress' => $card->getEmail(),
                 'address' => array(
-                    'streetName' => trim($addressParts[1]),
-                    'streetNumber' => $addressParts[2],
+                    'streetName' => $addressParts[1],
+                    'streetNumber' => $addressParts[2] . $addressParts[3],
                     'zipCode' => $card->getPostcode(),
                     'city' => $card->getCity(),
                     'countryCode' => $card->getCountry(),
@@ -66,11 +66,25 @@ class PurchaseRequest extends AbstractRequest {
                 'invoiceAddress' => array(
                     'initials' => $invoiceInitials,
                     'lastName' => $card->getBillingLastName(),
-                    'streetName' => trim($invoiceAddressParts[1]),
-                    'streetNumber' => $invoiceAddressParts[2],
+                    'streetName' => $invoiceAddressParts[1],
+                    'streetNumber' => $invoiceAddressParts[2] . $invoiceAddressParts[3],
                     'zipCode' => $card->getBillingPostcode(),
                     'countryCode' => $card->getBillingCountry()
                 )
+            );
+        }
+
+        if ($items = $this->getItems()) {
+            $data['saleData'] = array(
+                'orderData' => array_map(function($item) {
+                    return array(
+                        'productId' => $item->getName(),
+                        'description' => $item->getDescription(),
+                        'price' => $item->getPrice(),
+                        'quantity' => $item->getQuantity(),
+                        'vatCode' => 0,
+                    );
+                }, $items->all())
             );
         }
 
