@@ -78,9 +78,9 @@ class PurchaseRequest extends AbstractRequest {
             $data['saleData'] = array(
                 'orderData' => array_map(function($item) {
                     return array(
-                        'productId' => $item->getName(),
+                        'productId' => $this->getExcerpt($item->getName()),
                         'description' => $item->getDescription(),
-                        'price' => $item->getPrice(),
+                        'price' => ($item->getPrice()*100),
                         'quantity' => $item->getQuantity(),
                         'vatCode' => 0,
                     );
@@ -97,6 +97,27 @@ class PurchaseRequest extends AbstractRequest {
         $httpResponse = $this->sendRequest('POST', 'transaction/start', $data);
 
         return $this->response = new PurchaseResponse($this, $httpResponse->json());
+    }
+
+    /**
+     * Get excerpt from string
+     *
+     * @param   String  $str        String to get an excerpt from
+     * @param   Integer $maxLength  Maximum length the excerpt may be
+     * @param   String  $excerptEnd the end of the exerpt (...)
+     * @return  String              excerpt
+     */
+    private function getExcerpt($str, $maxLength=25, $excerptEnd = '...') {
+        if(strlen($str) > $maxLength) {
+            $excerpt   = substr($str, 0, $maxLength-strlen($excerptEnd));
+            $lastSpace = strrpos($excerpt, ' ');
+            $excerpt   = substr($excerpt, 0, $lastSpace);
+            $excerpt  .= $excerptEnd;
+        } else {
+            $excerpt = $str;
+        }
+
+        return $excerpt;
     }
 
 }
