@@ -9,16 +9,19 @@ namespace Omnipay\Paynl\Message;
  */
 class PurchaseRequest extends AbstractRequest {
 
+    /**
+     * Regex to find streetname, housenumber and suffix out of a street string
+     * @var string
+     */
     private $addressRegex = '#^([a-z0-9 [:punct:]\']*) ([0-9]{1,5})([a-z0-9 \-/]{0,})$#i';
-   
-    
+
+    /**
+     * Return the data formatted for PAY.nl
+     * @return array
+     */
     public function getData() {
         $this->validate('apitoken', 'serviceId', 'amount', 'description', 'returnUrl');
 
-        $data = array();
-        
-        
-        
         $data['amount'] = round($this->getAmount() * 100);
         $data['description'] = $this->getDescription();
         $data['finishUrl'] = $this->getReturnUrl();
@@ -45,9 +48,8 @@ class PurchaseRequest extends AbstractRequest {
             $initials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getFirstName())))) . '.';
             $invoiceInitials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getBillingFirstName())))) . '.';
 
-            $addressParts = $invoiceAddressParts = [];
-            preg_match($this->addressRegex, $card->getAddress1(), $addressParts);
-            preg_match($this->addressRegex, $card->getBillingAddress1(), $invoiceAddressParts);
+            $addressParts = [];
+            preg_match($this->addressRegex, $card->getBillingAddress1(), $addressParts);
 
             $data['enduser'] = array(
                 'initials' => $initials,
@@ -66,8 +68,8 @@ class PurchaseRequest extends AbstractRequest {
                 'invoiceAddress' => array(
                     'initials' => $invoiceInitials,
                     'lastName' => $card->getBillingLastName(),
-                    'streetName' => $invoiceAddressParts[1],
-                    'streetNumber' => $invoiceAddressParts[2] . $invoiceAddressParts[3],
+                    'streetName' => $addressParts[1],
+                    'streetNumber' => $addressParts[2] . $addressParts[3],
                     'zipCode' => $card->getBillingPostcode(),
                     'countryCode' => $card->getBillingCountry()
                 )
@@ -76,26 +78,28 @@ class PurchaseRequest extends AbstractRequest {
 
         if ($items = $this->getItems()) {
             $data['saleData'] = array(
-                'orderData' => array_map(function($item) {
-                    return array(
-                        'productId' => substr($item->getName(), 0, 25), //max length of a productId is 25 characters
-                        'description' => $item->getDescription(),
-                        'price' => ($item->getPrice()*100),		//convert the price from a double into a string
-                        'quantity' => $item->getQuantity(),
-                        'vatCode' => 0,
-                    );
-                }, $items->all())
-            );
+            'orderData' => array_map(function($item) {
+                        return array(
+                            'productId' => substr($item->getName(), 0, 25), //max length of a productId is 25 characters
+                            'description' => $item->getDescription(),
+                            'price' => ($item->getPrice() * 100), //convert the price from a double into a string
+                            'quantity' => $item->getQuantity(),
+                            'vatCode' => 0,
+                        );
+                    }, $items->all()));
         }
 
         $data['testMode'] = $this->getTestMode() ? 1 : 0;
-
         return $data;
     }
 
+    /**
+     * Send the data
+     * @param array $data
+     * @return array
+     */
     public function sendData($data) {
         $httpResponse = $this->sendRequest('POST', 'transaction/start', $data);
-
         return $this->response = new PurchaseResponse($this, $httpResponse->json());
     }
 }
