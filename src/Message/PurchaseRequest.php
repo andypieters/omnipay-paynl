@@ -23,7 +23,7 @@ class PurchaseRequest extends AbstractRequest {
         $this->validate('apitoken', 'serviceId', 'amount', 'description', 'returnUrl');
 
         $data['amount'] = round($this->getAmount() * 100);
-        $data['description'] = $this->getDescription();
+        $data['transaction']['description'] = $this->getDescription();
         $data['finishUrl'] = $this->getReturnUrl();
         $data['ipAddress'] = $this->getClientIp();
         if ($this->getPaymentMethod()) {
