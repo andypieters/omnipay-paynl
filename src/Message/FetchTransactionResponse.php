@@ -117,4 +117,18 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
             return $this->data['paymentDetails']['paidAmount'] / 100;
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function isPending()
+    {
+        if (isset($this->data['paymentDetails']['stateName'])) {
+            $state = $this->data['paymentDetails']['stateName'];
+
+            return $state === 'PENDING' || $state === 'VERIFY';
+        } else {
+            return false;
+        }
+    }
 }
