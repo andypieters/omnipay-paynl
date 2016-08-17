@@ -45,14 +45,14 @@ class PurchaseRequest extends AbstractRequest {
                 return strtoupper(substr($word, 0, 1));
             };
 
-            $initials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getFirstName())))) . '.';
-            $invoiceInitials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getBillingFirstName())))) . '.';
+            $initials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getFirstName()))));
+            $invoiceInitials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getBillingFirstName()))));
 
             $addressParts = [];
             preg_match($this->addressRegex, $card->getBillingAddress1(), $addressParts);
 
             $data['enduser'] = array(
-                'initials' => $initials,
+                'initials' => $initials ? $initials.'.' : '',
                 'lastName' => $card->getLastName(),
                 'gender' => $card->getGender(), // could be problematic, there is no specification as to how a gender is passed to credit card objects
                 'dob' => $card->getBirthday('d-m-Y'),
@@ -66,7 +66,7 @@ class PurchaseRequest extends AbstractRequest {
                     'countryCode' => $card->getCountry(),
                 ),
                 'invoiceAddress' => array(
-                    'initials' => $invoiceInitials,
+                    'initials' => $invoiceInitials ? $invoiceInitials.'.' : '',
                     'lastName' => $card->getBillingLastName(),
                     'streetName' => $addressParts[1],
                     'streetNumber' => $addressParts[2] . $addressParts[3],
