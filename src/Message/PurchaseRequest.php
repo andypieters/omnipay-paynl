@@ -50,6 +50,7 @@ class PurchaseRequest extends AbstractRequest {
 
             $addressParts = [];
             preg_match($this->addressRegex, $card->getBillingAddress1(), $addressParts);
+            $addressParts = array_filter($addressParts, 'trim');
 
             $data['enduser'] = array(
                 'initials' => $initials ? $initials.'.' : '',
@@ -60,7 +61,8 @@ class PurchaseRequest extends AbstractRequest {
                 'emailAddress' => $card->getEmail(),
                 'address' => array(
                     'streetName' => $addressParts[1],
-                    'streetNumber' => $addressParts[2] . $addressParts[3],
+                    'streetNumber' => $addressParts[2],
+                    'streetNumberExtension' => $addressParts[3],
                     'zipCode' => $card->getPostcode(),
                     'city' => $card->getCity(),
                     'countryCode' => $card->getCountry(),
@@ -69,7 +71,8 @@ class PurchaseRequest extends AbstractRequest {
                     'initials' => $invoiceInitials ? $invoiceInitials.'.' : '',
                     'lastName' => $card->getBillingLastName(),
                     'streetName' => $addressParts[1],
-                    'streetNumber' => $addressParts[2] . $addressParts[3],
+                    'streetNumber' => $addressParts[2],
+                    'streetNumberExtension' => $addressParts[3],
                     'zipCode' => $card->getBillingPostcode(),
                     'countryCode' => $card->getBillingCountry()
                 )
@@ -78,15 +81,31 @@ class PurchaseRequest extends AbstractRequest {
 
         if ($items = $this->getItems()) {
             $data['saleData'] = array(
-            'orderData' => array_map(function($item) {
-                        return array(
-                            'productId' => substr($item->getName(), 0, 25), //max length of a productId is 25 characters
-                            'description' => $item->getDescription(),
-                            'price' => ($item->getPrice() * 100), //convert the price from a double into a string
-                            'quantity' => $item->getQuantity(),
-                            'vatCode' => 0,
-                        );
-                    }, $items->all()));
+                'orderData' => array_map(function($item) {
+                    $data = array(
+                        'description' => $item->getDescription(),
+                        'price' => ($item->getPrice() * 100), //convert the price from a double into a string
+                        'quantity' => $item->getQuantity(),
+                        'vatCode' => 0,
+                    );
+
+                    if (method_exists($item, 'getProductId')) {
+                        $data['productId'] = $item->getProductId();
+                    } else {
+                        $data['productId'] = substr($item->getName(), 0, 25);
+                    }
+
+                    if (method_exists($item, 'getProductType')) {
+                        $data['productType'] = $item->getProductType();
+                    }
+
+                    if (method_exists($item, 'getVatPercentage')) {
+                        $data['vatPercentage'] = $item->getVatPercentage();
+                    }
+
+                    return $data;
+                }, $items->all()),
+            );
         }
 
         $data['testMode'] = $this->getTestMode() ? 1 : 0;
@@ -96,7 +115,7 @@ class PurchaseRequest extends AbstractRequest {
     /**
      * Send the data
      * @param array $data
-     * @return array
+     * @return AbstractResponse
      */
     public function sendData($data) {
         $httpResponse = $this->sendRequest('POST', 'transaction/start', $data);
