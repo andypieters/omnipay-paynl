@@ -55,7 +55,7 @@ class PurchaseRequest extends AbstractRequest {
             $data['enduser'] = array(
                 'initials' => $initials ? $initials.'.' : '',
                 'lastName' => $card->getLastName(),
-                'gender' => $card->getGender(), // could be problematic, there is no specification as to how a gender is passed to credit card objects
+                'gender' => $card->getGender(), //Should be inserted in the CreditCard as M/F
                 'dob' => $card->getBirthday('d-m-Y'),
                 'phoneNumber' => $card->getPhone(),
                 'emailAddress' => $card->getEmail(),
@@ -74,6 +74,7 @@ class PurchaseRequest extends AbstractRequest {
                     'streetNumber' => isset($addressParts[2]) ? $addressParts[2] : null,
                     'streetNumberExtension' => isset($addressParts[3]) ? $addressParts[3] : null,
                     'zipCode' => $card->getBillingPostcode(),
+                    'city' => $card->getBillingCity(),
                     'countryCode' => $card->getBillingCountry()
                 )
             );
