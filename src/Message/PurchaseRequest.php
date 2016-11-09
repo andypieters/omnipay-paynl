@@ -45,7 +45,6 @@ class PurchaseRequest extends AbstractRequest {
                 return strtoupper(substr($word, 0, 1));
             };
 
-            $initials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getFirstName()))));
             $invoiceInitials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getBillingFirstName()))));
 
             $addressParts = [];
@@ -53,7 +52,7 @@ class PurchaseRequest extends AbstractRequest {
             $addressParts = array_filter($addressParts, 'trim');
 
             $data['enduser'] = array(
-                'initials' => $initials ? $initials.'.' : '',
+                'initials' => $card->getFirstName(), //Pay has no support for firstName, but some methods require full name. Conversion to initials is handled by Pay.nl based on the payment method.
                 'lastName' => $card->getLastName(),
                 'gender' => $card->getGender(), //Should be inserted in the CreditCard as M/F
                 'dob' => $card->getBirthday('d-m-Y'),
