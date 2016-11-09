@@ -41,19 +41,12 @@ class PurchaseRequest extends AbstractRequest {
         }
 
         if ($card = $this->getCard()) {
-            $firstLetterInWord = function($word) {
-                return strtoupper(substr($word, 0, 1));
-            };
-
-            $initials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getFirstName()))));
-            $invoiceInitials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getBillingFirstName()))));
-
             $addressParts = [];
             preg_match($this->addressRegex, $card->getBillingAddress1(), $addressParts);
             $addressParts = array_filter($addressParts, 'trim');
 
             $data['enduser'] = array(
-                'initials' => $initials ? $initials.'.' : '',
+                'initials' => $card->getFirstName(), //Pay has no support for firstName, but some methods require full name. Conversion to initials is handled by Pay.nl based on the payment method.
                 'lastName' => $card->getLastName(),
                 'gender' => $card->getGender(), //Should be inserted in the CreditCard as M/F
                 'dob' => $card->getBirthday('d-m-Y'),
@@ -68,7 +61,7 @@ class PurchaseRequest extends AbstractRequest {
                     'countryCode' => $card->getCountry(),
                 ),
                 'invoiceAddress' => array(
-                    'initials' => $invoiceInitials ? $invoiceInitials.'.' : '',
+                    'initials' => $card->getBillingFirstName(),
                     'lastName' => $card->getBillingLastName(),
                     'streetName' => $addressParts[1],
                     'streetNumber' => isset($addressParts[2]) ? $addressParts[2] : null,
