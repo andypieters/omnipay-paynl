@@ -41,10 +41,6 @@ class PurchaseRequest extends AbstractRequest {
         }
 
         if ($card = $this->getCard()) {
-            $firstLetterInWord = function($word) {
-                return strtoupper(substr($word, 0, 1));
-            };
-
             $addressParts = [];
             preg_match($this->addressRegex, $card->getBillingAddress1(), $addressParts);
             $addressParts = array_filter($addressParts, 'trim');
