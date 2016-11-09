@@ -45,8 +45,6 @@ class PurchaseRequest extends AbstractRequest {
                 return strtoupper(substr($word, 0, 1));
             };
 
-            $invoiceInitials = implode('.', array_map($firstLetterInWord, explode(' ', trim($card->getBillingFirstName()))));
-
             $addressParts = [];
             preg_match($this->addressRegex, $card->getBillingAddress1(), $addressParts);
             $addressParts = array_filter($addressParts, 'trim');
@@ -67,7 +65,7 @@ class PurchaseRequest extends AbstractRequest {
                     'countryCode' => $card->getCountry(),
                 ),
                 'invoiceAddress' => array(
-                    'initials' => $invoiceInitials ? $invoiceInitials.'.' : '',
+                    'initials' => $card->getFirstName(),
                     'lastName' => $card->getBillingLastName(),
                     'streetName' => $addressParts[1],
                     'streetNumber' => isset($addressParts[2]) ? $addressParts[2] : null,
