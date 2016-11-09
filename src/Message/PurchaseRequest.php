@@ -65,7 +65,7 @@ class PurchaseRequest extends AbstractRequest {
                     'countryCode' => $card->getCountry(),
                 ),
                 'invoiceAddress' => array(
-                    'initials' => $card->getFirstName(),
+                    'initials' => $card->getBillingFirstName(),
                     'lastName' => $card->getBillingLastName(),
                     'streetName' => $addressParts[1],
                     'streetNumber' => isset($addressParts[2]) ? $addressParts[2] : null,
