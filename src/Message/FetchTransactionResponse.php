@@ -69,16 +69,8 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function isPaid()
     {
-        return isset($this->data['paymentDetails']['stateName']) && 'PAID' === $this->data['paymentDetails']['stateName'];
+        return isset($this->data['paymentDetails']['stateName']) && in_array($this->data['paymentDetails']['stateName'], ['PAID', 'AUTHORIZE']);
     }
-
-    /**
-     * @return boolean
-     */
-//    public function isPaidOut()
-//    {
-//        return isset($this->data['status']) && 'paidout' === $this->data['status'];
-//    }
 
     /**
      * @return boolean
