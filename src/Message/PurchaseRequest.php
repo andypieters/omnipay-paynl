@@ -52,6 +52,7 @@ class PurchaseRequest extends AbstractRequest {
                 'dob' => $card->getBirthday('d-m-Y'),
                 'phoneNumber' => $card->getPhone(),
                 'emailAddress' => $card->getEmail(),
+                'language' => $card->getBillingCountry(),
                 'address' => array(
                     'streetName' => $addressParts[1],
                     'streetNumber' => isset($addressParts[2]) ? $addressParts[2] : null,
