@@ -41,9 +41,8 @@ class PurchaseRequest extends AbstractRequest {
         }
 
         if ($card = $this->getCard()) {
-            $addressParts = [];
-            preg_match($this->addressRegex, $card->getBillingAddress1(), $addressParts);
-            $addressParts = array_filter($addressParts, 'trim');
+            $billingAddressParts = $this->getAddressParts($card->getBillingAddress1());
+            $shippingAddressParts = ($card->getShippingAddress1() ? $this->getAddressParts($card->getShippingAddress1()) : $billingAddressParts);
 
             $data['enduser'] = array(
                 'initials' => $card->getFirstName(), //Pay has no support for firstName, but some methods require full name. Conversion to initials is handled by Pay.nl based on the payment method.
@@ -54,19 +53,19 @@ class PurchaseRequest extends AbstractRequest {
                 'emailAddress' => $card->getEmail(),
                 'language' => $card->getBillingCountry(),
                 'address' => array(
-                    'streetName' => $addressParts[1],
-                    'streetNumber' => isset($addressParts[2]) ? $addressParts[2] : null,
-                    'streetNumberExtension' => isset($addressParts[3]) ? $addressParts[3] : null,
-                    'zipCode' => $card->getPostcode(),
-                    'city' => $card->getCity(),
-                    'countryCode' => $card->getCountry(),
+                    'streetName' => $shippingAddressParts[1],
+                    'streetNumber' => isset($shippingAddressParts[2]) ? $shippingAddressParts[2] : null,
+                    'streetNumberExtension' => isset($shippingAddressParts[3]) ? $shippingAddressParts[3] : null,
+                    'zipCode' => $card->getShippingPostcode(),
+                    'city' => $card->getShippingCity(),
+                    'countryCode' => $card->getShippingCountry(),
                 ),
                 'invoiceAddress' => array(
                     'initials' => $card->getBillingFirstName(),
                     'lastName' => $card->getBillingLastName(),
-                    'streetName' => $addressParts[1],
-                    'streetNumber' => isset($addressParts[2]) ? $addressParts[2] : null,
-                    'streetNumberExtension' => isset($addressParts[3]) ? $addressParts[3] : null,
+                    'streetName' => $billingAddressParts[1],
+                    'streetNumber' => isset($billingAddressParts[2]) ? $billingAddressParts[2] : null,
+                    'streetNumberExtension' => isset($billingAddressParts[3]) ? $billingAddressParts[3] : null,
                     'zipCode' => $card->getBillingPostcode(),
                     'city' => $card->getBillingCity(),
                     'countryCode' => $card->getBillingCountry()
@@ -115,5 +114,16 @@ class PurchaseRequest extends AbstractRequest {
     public function sendData($data) {
         $httpResponse = $this->sendRequest('POST', 'transaction/start', $data);
         return $this->response = new PurchaseResponse($this, $httpResponse->json());
+    }
+
+    /**
+     * Get the parts of an address
+     * @param string $address
+     * @return array
+     */
+    public function getAddressParts($address) {
+            $addressParts = [];
+            preg_match($this->addressRegex, address, $addressParts);
+            return array_filter($addressParts, 'trim');
     }
 }
