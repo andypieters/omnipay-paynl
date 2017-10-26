@@ -123,7 +123,7 @@ class PurchaseRequest extends AbstractRequest {
      */
     public function getAddressParts($address) {
             $addressParts = [];
-            preg_match($this->addressRegex, address, $addressParts);
+            preg_match($this->addressRegex, $address, $addressParts);
             return array_filter($addressParts, 'trim');
     }
 }
