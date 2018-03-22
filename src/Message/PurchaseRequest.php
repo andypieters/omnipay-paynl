@@ -2,6 +2,8 @@
 
 namespace Omnipay\Paynl\Message;
 
+use Omnipay\Common\Item;
+
 /**
  * Paynl Purchase Request
  *
@@ -28,9 +30,6 @@ class PurchaseRequest extends AbstractRequest {
         $data['ipAddress'] = $this->getClientIp();
         if ($this->getPaymentMethod()) {
             $data['paymentOptionId'] = $this->getPaymentMethod();
-        }
-        if ($this->getPaymentMethod()) {
-            $data['paymentOptionId'] = $this->getPaymentMethod();
             if ($this->getPaymentMethod() == 10 && $this->getIssuer()) {
                 $data['paymentOptionSubId'] = $this->getIssuer();
             }
@@ -53,22 +52,24 @@ class PurchaseRequest extends AbstractRequest {
                 'emailAddress' => $card->getEmail(),
                 'language' => $card->getBillingCountry(),
                 'address' => array(
-                    'streetName' => $shippingAddressParts[1],
+                    'streetName' => isset($shippingAddressParts[1]) ? $shippingAddressParts[1] : null,
                     'streetNumber' => isset($shippingAddressParts[2]) ? $shippingAddressParts[2] : null,
                     'streetNumberExtension' => isset($shippingAddressParts[3]) ? $shippingAddressParts[3] : null,
                     'zipCode' => $card->getShippingPostcode(),
                     'city' => $card->getShippingCity(),
                     'countryCode' => $card->getShippingCountry(),
+                    'regionCode' => $card->getShippingState()
                 ),
                 'invoiceAddress' => array(
                     'initials' => $card->getBillingFirstName(),
                     'lastName' => $card->getBillingLastName(),
-                    'streetName' => $billingAddressParts[1],
+                    'streetName' => isset($billingAddressParts[1]) ? $billingAddressParts[1] : null,
                     'streetNumber' => isset($billingAddressParts[2]) ? $billingAddressParts[2] : null,
                     'streetNumberExtension' => isset($billingAddressParts[3]) ? $billingAddressParts[3] : null,
                     'zipCode' => $card->getBillingPostcode(),
                     'city' => $card->getBillingCity(),
-                    'countryCode' => $card->getBillingCountry()
+                    'countryCode' => $card->getBillingCountry(),
+                    'regionCode' => $card->getBillingState()
                 )
             );
         }
@@ -76,6 +77,7 @@ class PurchaseRequest extends AbstractRequest {
         if ($items = $this->getItems()) {
             $data['saleData'] = array(
                 'orderData' => array_map(function($item) {
+                    /** @var Item $item */
                     $data = array(
                         'description' => $item->getDescription(),
                         'price' => ($item->getPrice() * 100), //convert the price from a double into a string
