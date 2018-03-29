@@ -1,0 +1,3 @@
+HTTP/1.1 200 OK
+
+{"request":{"result":"0","errorId":"PAY-412","errorMessage":"The order has already been captured"}}

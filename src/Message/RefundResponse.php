@@ -11,7 +11,7 @@ class RefundResponse extends AbstractResponse
      */
     public function getTransactionReference()
     {
-        if (isset($this->data['refundId'])) {
+        if (!empty($this->data['refundId'])) {
             return $this->data['refundId'];
         }
 

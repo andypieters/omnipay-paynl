@@ -1,0 +1,3 @@
+HTTP/1.1 200 OK
+
+{"request":{"result":"0","errorId":"14","errorMessage":"Refund too fast"},"refundId":""}

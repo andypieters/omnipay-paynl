@@ -7,7 +7,6 @@ use Omnipay\Common\Exception\InvalidRequestException;
 /**
  * Paynl Complete Purchase Request
  *
- * @method \Omnipay\Paynl\Message\CompletePurchaseResponse send()
  */
 class CompletePurchaseRequest extends FetchTransactionRequest
 {
@@ -15,17 +14,17 @@ class CompletePurchaseRequest extends FetchTransactionRequest
     {
         $this->validate('apitoken');
 
-        $data = array();
+        $data                  = array();
         $data['transactionId'] = $this->getTransactionReference();
 
-        
+
         if (empty($data['transactionId'])) {
-            $data['transactionId'] = $_GET['orderId'];
+            $data['transactionId'] = isset($_GET['orderId']) ? $_GET['orderId'] : null;
         }
         if (empty($data['transactionId'])) {
-            $data['transactionId'] = $_GET['order_id'];
+            $data['transactionId'] = isset($_REQUEST['order_id']) ? $_REQUEST['order_id'] : null;
         }
-        
+
 
         if (empty($data['transactionId'])) {
             throw new InvalidRequestException("The transactionReference parameter is required");
@@ -36,7 +35,7 @@ class CompletePurchaseRequest extends FetchTransactionRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->sendRequest('POST', 'transaction/info' , $data);
+        $httpResponse = $this->sendRequest('POST', 'transaction/info', $data);
 
         return $this->response = new CompletePurchaseResponse($this, $httpResponse->json());
     }

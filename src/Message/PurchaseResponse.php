@@ -2,7 +2,9 @@
 
 namespace Omnipay\Paynl\Message;
 
-class PurchaseResponse extends FetchTransactionResponse
+use Omnipay\Common\Message\RedirectResponseInterface;
+
+class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     /**
      * When you do a `purchase` the request is never successful because
@@ -13,6 +15,38 @@ class PurchaseResponse extends FetchTransactionResponse
     public function isSuccessful()
     {
         return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isRedirect()
+    {
+        return isset($this->data['transaction']['paymentURL']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRedirectUrl()
+    {
+        return isset($this->data['transaction']['paymentURL'])?$this->data['transaction']['paymentURL']:null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRedirectMethod()
+    {
+        return 'GET';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRedirectData()
+    {
+        return null;
     }
 
 }

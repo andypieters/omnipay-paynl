@@ -25,7 +25,7 @@ class Gateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return array(
-            'apitoken' => '',
+            'apitoken'  => '',
             'serviceId' => '',
         );
     }
@@ -40,6 +40,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param  string $value
+     *
      * @return $this
      */
     public function setApitoken($value)
@@ -57,15 +58,17 @@ class Gateway extends AbstractGateway
 
     /**
      * @param  string $value
+     *
      * @return $this
      */
     public function setServiceId($value)
     {
         return $this->setParameter('serviceId', $value);
     }
-    
+
     /**
      * @param array $parameters
+     *
      * @return \Omnipay\Paynl\Message\FetchIssuersRequest
      */
     public function fetchIssuers(array $parameters = array())
@@ -75,6 +78,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     *
      * @return \Omnipay\Paynl\Message\FetchPaymentMethodsRequest
      */
     public function fetchPaymentMethods(array $parameters = array())
@@ -83,7 +87,8 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array                                           $parameters
+     * @param  array $parameters
+     *
      * @return \Omnipay\Paynl\Message\FetchTransactionRequest
      */
     public function fetchTransaction(array $parameters = array())
@@ -92,8 +97,9 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array                                   $parameters
-     * @return \Omnipay\Paynl\Message\PurchaseRequest
+     * @param array $parameters
+     *
+     * @return \Omnipay\Paynl\Message\PurchaseRequestTest
      */
     public function purchase(array $parameters = array())
     {
@@ -101,7 +107,8 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array                                           $parameters
+     * @param array $parameters
+     *
      * @return \Omnipay\Paynl\Message\CompletePurchaseRequest
      */
     public function completePurchase(array $parameters = array())
@@ -111,6 +118,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     *
      * @return \Omnipay\Paynl\Message\RefundRequest
      */
     public function refund(array $parameters = array())
@@ -120,6 +128,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     *
      * @return \Omnipay\Paynl\Message\CaptureRequest
      */
     public function capture(array $parameters = array())

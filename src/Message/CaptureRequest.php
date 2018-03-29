@@ -21,8 +21,9 @@ class CaptureRequest extends AbstractRequest {
         $data = array();
         $data['transactionId'] = $this->getTransactionReference();
 
-        if (!empty($this->getAmount())) {
-            $data['amount'] = round($this->getAmount() * 100);
+        $amount = $this->getAmount();
+        if (!empty($amount)) {
+            $data['amount'] = round($amount * 100);
         }
 
         if ($items = $this->getItems()) {

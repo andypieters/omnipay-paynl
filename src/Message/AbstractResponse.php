@@ -11,8 +11,6 @@ class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 
     public function getMessage()
     {
-        if (isset($this->data['request']['errorMessage'])) {
-            return $this->data['request']['errorMessage'];
-        }
+        return isset($this->data['request']['errorMessage'])? $this->data['request']['errorMessage']: '';
     }
 }

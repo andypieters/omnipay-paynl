@@ -30,6 +30,9 @@ class RefundRequest extends AbstractRequest
         if ($this->getAmount() != null) {
             $data['amount'] = round($this->getAmount() * 100);
         }
+        if ($this->getDescription() != null) {
+            $data['description'] = $this->getDescription();
+        }
 
         return $data;
     }

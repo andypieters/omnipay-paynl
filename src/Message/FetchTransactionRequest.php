@@ -11,9 +11,9 @@ class FetchTransactionRequest extends AbstractRequest
 {
     public function getData()
     {
-        $this->validate('apitoken', 'serviceId' ,'transactionReference');
+        $this->validate('apitoken', 'transactionReference');
 
-        $data = array();
+        $data                  = array();
         $data['transactionId'] = $this->getTransactionReference();
 
         return $data;
@@ -21,8 +21,10 @@ class FetchTransactionRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->sendRequest('POST', 'transaction/info' , $data);
+        $httpResponse                               = $this->sendRequest('POST', 'transaction/info', $data);
+        $resultData                                 = $httpResponse->json();
+        $resultData['transaction']['transactionId'] = $data['transactionId'];
 
-        return $this->response = new FetchTransactionResponse($this, $httpResponse->json());
+        return $this->response = new FetchTransactionResponse($this, $resultData);
     }
 }
