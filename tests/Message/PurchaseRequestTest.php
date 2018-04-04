@@ -60,6 +60,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertEquals('GET', $response->getRedirectMethod());
         $this->assertNull($response->getRedirectData());
         $this->assertEmpty($response->getMessage());
+        $this->assertNotEmpty($response->getTransactionReference());
     }
 
     public function testErrorIdeal()

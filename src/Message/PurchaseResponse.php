@@ -49,4 +49,9 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         return null;
     }
 
+    public function getTransactionReference()
+    {
+        return isset($this->data['transaction']['transactionId'])?$this->data['transaction']['transactionId']:null;
+    }
+
 }
