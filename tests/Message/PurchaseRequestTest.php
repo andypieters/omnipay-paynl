@@ -46,6 +46,55 @@ class PurchaseRequestTest extends TestCase
         $this->assertArrayHasKey('orderData', $data['saleData']);
     }
 
+    public function testWithCardOnlyShipping(){
+        $arrCard = $this->getValidCard();
+
+        unset($arrCard['billingAddress1']);
+        unset($arrCard['billingAddress2']);
+        unset($arrCard['billingCity']);
+        unset($arrCard['billingPostcode']);
+        unset($arrCard['billingState']);
+        unset($arrCard['billingCountry']);
+        unset($arrCard['billingPhone']);
+
+        $card = new CreditCard($arrCard);
+
+
+        $this->request->setCard($card);
+        $this->assertEquals($card, $this->request->getCard());
+
+        $data = $this->request->getData();
+        $this->assertEquals($arrCard['shippingCity'], $data['enduser']['address']['city']);
+        $this->assertEquals($arrCard['shippingPostcode'], $data['enduser']['address']['zipCode']);
+        $this->assertEquals($arrCard['shippingCountry'], $data['enduser']['address']['countryCode']);
+        $this->assertEquals($arrCard['shippingState'], $data['enduser']['address']['regionCode']);
+
+    }
+    public function testWithCardOnlyBilling(){
+        $arrCard = $this->getValidCard();
+
+        unset($arrCard['shippingAddress1']);
+        unset($arrCard['shippingAddress2']);
+        unset($arrCard['shippingCity']);
+        unset($arrCard['shippingPostcode']);
+        unset($arrCard['shippingState']);
+        unset($arrCard['shippingCountry']);
+        unset($arrCard['shippingPhone']);
+
+        $card = new CreditCard($arrCard);
+
+
+        $this->request->setCard($card);
+        $this->assertEquals($card, $this->request->getCard());
+
+        $data = $this->request->getData();
+
+        $this->assertEquals($arrCard['billingCity'], $data['enduser']['invoiceAddress']['city']);
+        $this->assertEquals($arrCard['billingPostcode'], $data['enduser']['invoiceAddress']['zipCode']);
+        $this->assertEquals($arrCard['billingCountry'], $data['enduser']['invoiceAddress']['countryCode']);
+        $this->assertEquals($arrCard['billingState'], $data['enduser']['invoiceAddress']['regionCode']);
+    }
+
     public function testSuccessIdeal()
     {
         $this->setMockHttpResponse('PurchaseSuccess.txt');
@@ -86,8 +135,9 @@ class PurchaseRequestTest extends TestCase
 
         $this->request = m::mock('Omnipay\Paynl\Message\PurchaseRequest[getEndpoint]', $arguments);
 
-        $card = new CreditCard($this->getValidCard());
+        $arrCard = $this->getValidCard();
 
+        $card = new CreditCard($arrCard);
         $this->request->setCard($card);
         $this->request->setApitoken('token');
         $this->request->setAmount('10.00');
