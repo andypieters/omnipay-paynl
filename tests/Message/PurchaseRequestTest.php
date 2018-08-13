@@ -46,6 +46,15 @@ class PurchaseRequestTest extends TestCase
         $this->assertArrayHasKey('orderData', $data['saleData']);
     }
 
+    public function testCurrency(){
+        $this->request->setCurrency('USD');
+        $data = $this->request->getData();
+
+        $this->assertArrayHasKey('transaction',$data);
+        $this->assertArrayHasKey('currency', $data['transaction']);
+        $this->assertEquals('USD', $data['transaction']['currency']);
+    }
+
     public function testWithCardOnlyShipping(){
         $arrCard = $this->getValidCard();
 

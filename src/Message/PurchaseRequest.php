@@ -39,6 +39,10 @@ class PurchaseRequest extends AbstractRequest {
             $data['transaction']['orderExchangeUrl'] = $this->getNotifyUrl();
         }
 
+        if($this->getCurrency()){
+            $data['transaction']['currency'] = $this->getCurrency();
+        }
+
         if ($card = $this->getCard()) {
             $billingAddressParts = $this->getAddressParts($card->getBillingAddress1());
             $shippingAddressParts = ($card->getShippingAddress1() ? $this->getAddressParts($card->getShippingAddress1()) : $billingAddressParts);
