@@ -23,14 +23,18 @@ abstract class AbstractPaynlRequest extends AbstractRequest
      */
     public function sendRequest($endpoint, array $data = null)
     {
+        $uri = $this->baseUrl . $endpoint . '/json';
+        $method = 'GET';
+        $headers = $this->getAuthHeader();
+        $body = null;
 
-        $response = $this->httpClient->request(
-            'POST',
-            $this->baseUrl . $endpoint . '/json',
-            $this->getAuthHeader() +
-            ['Content-Type' => 'application/json'],
-            $data == null ? null : json_encode($data)
-        );
+        if (!is_null($data)) {
+            $method = 'POST';
+            $headers += ['Content-Type' => 'application/json'];
+            $body = json_encode($data);
+        }
+
+        $response = $this->httpClient->request($method, $uri, $headers, $body);
 
         return json_decode($response->getBody(), true);
     }

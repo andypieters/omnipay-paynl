@@ -3,6 +3,7 @@
 namespace Omnipay\Paynl;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Paynl\Message\Request\FetchIssuersRequest;
 use Omnipay\Paynl\Message\Request\FetchPaymentMethodsRequest;
 use Omnipay\Paynl\Message\Request\FetchTransactionRequest;
 
@@ -85,7 +86,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return FetchTransactionRequest
+     * @return \Omnipay\Common\Message\AbstractRequest|FetchTransactionRequest
      */
     public function fetchTransaction(array $parameters = [])
     {
@@ -93,11 +94,19 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @return FetchPaymentMethodsRequest
+     * @return \Omnipay\Common\Message\AbstractRequest|FetchPaymentMethodsRequest
      */
     public function fetchPaymentMethods()
     {
         return $this->createRequest(FetchPaymentMethodsRequest::class, []);
+    }
+
+    /**
+     * @return \Omnipay\Common\Message\AbstractRequest|FetchIssuersRequest
+     */
+    public function fetchIssuers()
+    {
+        return $this->createRequest(FetchIssuersRequest::class, []);
     }
 
 }
