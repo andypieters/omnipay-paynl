@@ -11,6 +11,12 @@ namespace Omnipay\Paynl\Message\Request;
 
 use Omnipay\Paynl\Message\Response\FetchTransactionResponse;
 
+/**
+ * Class FetchTransactionRequest
+ * @package Omnipay\Paynl\Message\Request
+ *
+ * @method FetchTransactionResponse send()
+ */
 class FetchTransactionRequest extends AbstractPaynlRequest
 {
     public function getData()
