@@ -1,0 +1,24 @@
+{
+    "name": "paynl/omnipay-paynl",
+    "description": "Pay.nl driver for the Omnipay PHP payment processing library",
+    "type": "library",
+    "require": {
+        "omnipay/common": "~3"
+    },
+    "require-dev": {
+        "omnipay/tests": "~3"
+    },
+    "license": "mit",
+    "authors": [
+        {
+            "name": "andypieters",
+            "email": "andy@pay.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\Paynl\\" : "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Omnipay\\Paynl\\Test\\": "tests/" }
+    }
+}
