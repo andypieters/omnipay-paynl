@@ -7,9 +7,10 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "omnipay/tests": "~3"
+        "omnipay/tests": "~3",
+        "monolog/monolog": "^1.23"
     },
-    "license": "mit",
+    "license": "MIT",
     "authors": [
         {
             "name": "andypieters",

@@ -6,6 +6,7 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\Paynl\Message\Request\FetchIssuersRequest;
 use Omnipay\Paynl\Message\Request\FetchPaymentMethodsRequest;
 use Omnipay\Paynl\Message\Request\FetchTransactionRequest;
+use Omnipay\Paynl\Message\Request\PurchaseRequest;
 
 class Gateway extends AbstractGateway
 {
@@ -85,28 +86,39 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param array $parameters
+     * @param array $options
      * @return \Omnipay\Common\Message\AbstractRequest|FetchTransactionRequest
      */
-    public function fetchTransaction(array $parameters = [])
+    public function fetchTransaction(array $options = [])
     {
-        return $this->createRequest(FetchTransactionRequest::class, $parameters);
+        return $this->createRequest(FetchTransactionRequest::class, $options);
     }
 
     /**
+     * @param array $options
      * @return \Omnipay\Common\Message\AbstractRequest|FetchPaymentMethodsRequest
      */
-    public function fetchPaymentMethods()
+    public function fetchPaymentMethods(array $options = [])
     {
-        return $this->createRequest(FetchPaymentMethodsRequest::class, []);
+        return $this->createRequest(FetchPaymentMethodsRequest::class, $options);
     }
 
     /**
+     * @param array $options
      * @return \Omnipay\Common\Message\AbstractRequest|FetchIssuersRequest
      */
-    public function fetchIssuers()
+    public function fetchIssuers(array $options = [])
     {
-        return $this->createRequest(FetchIssuersRequest::class, []);
+        return $this->createRequest(FetchIssuersRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest|\Omnipay\Common\Message\RequestInterface
+     */
+    public function purchase(array $options = array())
+    {
+        return $this->createRequest(PurchaseRequest::class, $options);
     }
 
 }

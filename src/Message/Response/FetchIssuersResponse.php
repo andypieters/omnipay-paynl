@@ -18,7 +18,7 @@ class FetchIssuersResponse extends AbstractPaynlResponse
      */
     public function isSuccessful()
     {
-        return isset($this->data) && is_array($this->data);
+        return isset($this->data) && is_array($this->data) && !empty($this->data);
     }
 
     /**

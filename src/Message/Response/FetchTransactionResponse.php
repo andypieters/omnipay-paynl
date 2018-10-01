@@ -20,18 +20,23 @@ class FetchTransactionResponse extends AbstractPaynlResponse
     {
         return
             isset($this->data['paymentDetails']['stateName']) &&
-            (strpos('PENDING', strtoupper($this->data['paymentDetails']['stateName'])) !== false ||
-                $this->data['paymentDetails']['stateName'] == 'VERIFY');
+            (strpos('PENDING', strtoupper($this->data['paymentDetails']['stateName'])) !== false);
     }
 
     /**
      * @return bool
      */
-    public function isOpen()
-    {
+    public function isOpen(){
+        return $this->isPending();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVerify(){
         return
             isset($this->data['paymentDetails']['stateName']) &&
-            strpos('PENDING', strtoupper($this->data['paymentDetails']['stateName'])) !== false;
+            strtoupper($this->data['paymentDetails']['stateName']) == 'VERIFY';
     }
 
     /**
@@ -63,7 +68,7 @@ class FetchTransactionResponse extends AbstractPaynlResponse
      */
     public function getAmount()
     {
-        return isset($this->data['paymentDetails']['paidCurrenyAmount']) ? $this->data['paymentDetails']['paidCurrenyAmount'] / 100 : null;
+        return isset($this->data['paymentDetails']['currenyAmount']) ? $this->data['paymentDetails']['currenyAmount'] / 100 : null;
     }
 
     /**

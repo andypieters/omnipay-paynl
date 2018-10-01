@@ -14,7 +14,7 @@ use Omnipay\Common\PaymentMethod;
 class FetchPaymentMethodsResponse extends AbstractPaynlResponse
 {
     /**
-     * Return available paymentmethods as an array
+     * Return available payment methods as an array
      *
      * @return PaymentMethod[]|null
      */
