@@ -1,0 +1,104 @@
+HTTP/1.1 200 OK
+Date: Tue, 25 Sep 2018 21:30:56 GMT; 
+Server: Apache; 
+Expires: Mon, 26 Jul 1990 05:00:00 GMT; 
+Last-Modified: Tue, 25 Sep 2018 21:30:56 GMT; 
+Cache-Control: post-check=0, pre-check=0; 
+Pragma: no-cache; 
+X-Frame-Options: SAMEORIGIN; 
+X-XSS-Protection: 1; mode=block; 
+X-Content-Type-Options: nosniff; 
+Content-Length: 1731; 
+Connection: close; 
+Content-Type: application/json; 
+
+[
+    {
+        "id": "1",
+        "name": "ABN Amro",
+        "issuerId": "0031",
+        "swift": "ABNANL2A",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankAbnAmro.png",
+        "available": "1"
+    },
+    {
+        "id": "2",
+        "name": "Rabobank",
+        "issuerId": "0021",
+        "swift": "RABONL2U",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankRabobank.png",
+        "available": "1"
+    },
+    {
+        "id": "4",
+        "name": "ING Bank",
+        "issuerId": "0721",
+        "swift": "INGBNL2A",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankIngBank.png",
+        "available": "1"
+    },
+    {
+        "id": "5",
+        "name": "SNS Bank",
+        "issuerId": "0751",
+        "swift": "SNSBNL2A",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankSnsReaal.png",
+        "available": "1"
+    },
+    {
+        "id": "8",
+        "name": "ASN Bank",
+        "issuerId": "0761",
+        "swift": "ASNBNL21",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankASNBank.png",
+        "available": "1"
+    },
+    {
+        "id": "9",
+        "name": "RegioBank",
+        "issuerId": "0771",
+        "swift": "RBRBNL21",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankSNSRegioBank.png",
+        "available": "1"
+    },
+    {
+        "id": "10",
+        "name": "Triodos Bank",
+        "issuerId": "0511",
+        "swift": "TRIONL2U",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankTriodos.png",
+        "available": "1"
+    },
+    {
+        "id": "11",
+        "name": "Van Lanschot Bankiers",
+        "issuerId": "0161",
+        "swift": "FVLBNL22",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankLanschot.png",
+        "available": "1"
+    },
+    {
+        "id": "12",
+        "name": "Knab bank",
+        "issuerId": "0801",
+        "swift": "KNABNL2H",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankKnab.png",
+        "available": "1"
+    },
+    {
+        "id": "5080",
+        "name": "Bunq",
+        "issuerId": "0066",
+        "swift": "BUNQNL2A",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankBunq.png",
+        "available": "1"
+    },
+    {
+        "id": "5081",
+        "name": "Moneyou",
+        "issuerId": "5081",
+        "swift": "MOYONL21",
+        "icon": "https:\/\/www.pay.nl\/betalen\/images\/tas2iDealBankmoneyou.png",
+        "available": "1"
+    }
+]

@@ -1,0 +1,152 @@
+HTTP/1.1 200 OK
+Date: Wed, 26 Sep 2018 16:01:07 GMT;
+Server: Apache;
+Expires: Mon, 26 Jul 1990 05:00:00 GMT;
+Last-Modified: Wed, 26 Sep 2018 16:01:08 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Content-Length: 2362;
+Connection: close;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "1",
+        "errorId": "",
+        "errorMessage": ""
+    },
+    "connection": {
+        "trust": "10",
+        "country": "Unknown",
+        "city": "",
+        "locationLat": "",
+        "locationLon": "",
+        "browserData": "",
+        "ipAddress": "10.0.0.5",
+        "countryName": "Unknown",
+        "blacklist": "0",
+        "host": "10.0.0.5",
+        "orderIpAddress": "10.0.0.5",
+        "orderReturnURL": "https:\/\/www.pay.nl",
+        "merchantCode": "M-3421-2120",
+        "merchantName": "Classic Carparts"
+    },
+    "enduser": {
+        "accessCode": "",
+        "language": "NL",
+        "initials": "",
+        "lastName": "",
+        "gender": "",
+        "dob": "",
+        "phoneNumber": "",
+        "emailAddress": "",
+        "bankAccount": "",
+        "iban": "",
+        "bic": "",
+        "sendConfirmMail": "",
+        "confirmMailTemplate": "",
+        "customerReference": "",
+        "customerTrust": "",
+        "address": {
+            "streetName": "",
+            "streetNumber": "",
+            "streetNumberExtension": "",
+            "zipCode": "",
+            "city": "",
+            "regionCode": "",
+            "countryCode": "NL"
+        },
+        "invoiceAddress": {
+            "initials": "",
+            "lastName": "",
+            "gender": "",
+            "streetName": "",
+            "streetNumber": "",
+            "streetNumberExtension": "",
+            "zipCode": "",
+            "city": "",
+            "regionCode": "",
+            "countryCode": "NL"
+        },
+        "company": {
+            "name": "",
+            "cocNumber": "",
+            "vatNumber": "",
+            "countryCode": "NL"
+        }
+    },
+    "saleData": {
+        "invoiceDate": "",
+        "deliveryDate": "",
+        "orderData": ""
+    },
+    "paymentDetails": {
+        "amount": "85",
+        "currenyAmount": "100",
+        "paidAmount": "0",
+        "paidCurrenyAmount": "0",
+        "paidBase": "0",
+        "paidCosts": "0",
+        "paidCostsVat": "0",
+        "paidCurrency": "USD",
+        "paidAttemps": "1",
+        "paidDuration": "0",
+        "description": "9966 0291 7000 0000",
+        "processTime": "881",
+        "state": "85",
+        "stateName": "VERIFY",
+        "stateDescription": "Needs verification",
+        "exchange": "",
+        "storno": "0",
+        "paymentOptionId": "613",
+        "paymentOptionSubId": "0",
+        "secure": "0",
+        "secureStatus": "",
+        "identifierName": "",
+        "identifierPublic": "",
+        "identifierHash": "",
+        "cardExpire": "",
+        "customerKey": "",
+        "serviceId": "SL-5261-6001",
+        "serviceName": "Andy Testmode",
+        "serviceDescription": "Test dienst andy testmode",
+        "created": "2018-09-26 17:46:18",
+        "modified": "2018-09-26 18:00:59",
+        "paymentMethodId": "4",
+        "paymentMethodName": "Transacties ",
+        "paymentMethodDescription": "Pay Per Transaction",
+        "paymentProfileName": "SandBox",
+        "orderNumber": "936674",
+        "cardBrand": "",
+        "cardType": "",
+        "cardCountryCode": "",
+        "paymentProfileBrandName": "",
+        "paymentProfileCategoryName": ""
+    },
+    "statsDetails": {
+        "tool": "",
+        "info": "",
+        "object": "",
+        "extra1": "",
+        "extra2": "",
+        "extra3": "",
+        "promotorId": "0",
+        "domainId": "",
+        "transferData": "",
+        "paymentSessionId": "996602917"
+    },
+    "stornoDetails": {
+        "stornoId": "",
+        "stornoAmount": "",
+        "bankAccount": "",
+        "iban": "",
+        "bic": "",
+        "city": "",
+        "datetime": "",
+        "reason": "",
+        "emailAddress": ""
+    }
+}

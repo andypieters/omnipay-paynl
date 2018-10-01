@@ -1,0 +1,30 @@
+HTTP/1.1 200 OK
+Date: Wed, 26 Sep 2018 15:46:18 GMT;
+Server: Apache;
+Expires: Mon, 26 Jul 1990 05:00:00 GMT;
+Last-Modified: Wed, 26 Sep 2018 15:46:18 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Content-Length: 360;
+Connection: close;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "1",
+        "errorId": "",
+        "errorMessage": ""
+    },
+    "endUser": {
+        "blacklist": "0"
+    },
+    "transaction": {
+        "transactionId": "996602917X97eedb",
+        "paymentURL": "https:\/\/www.pay.nl",
+        "popupAllowed": "0",
+        "paymentReference": "9000 0009 9660 2917"
+    }
+}
