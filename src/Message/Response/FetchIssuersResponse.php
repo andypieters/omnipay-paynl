@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: andypieters
- * Date: 25/09/2018
- * Time: 15:42
- */
 
 namespace Omnipay\Paynl\Message\Response;
 

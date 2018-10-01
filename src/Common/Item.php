@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: andy
- * Date: 1-10-18
- * Time: 15:38
- */
 
 namespace Omnipay\Paynl\Common;
 
@@ -15,6 +9,7 @@ class Item extends \Omnipay\Common\Item
     const PRODUCT_TYPE_SHIPPING = 'SHIPPING';
     const PRODUCT_TYPE_HANDLING = 'HANDLING';
     const PRODUCT_TYPE_DISCOUNT = 'DISCOUNT';
+
     /**
      * @return string
      */
@@ -22,6 +17,7 @@ class Item extends \Omnipay\Common\Item
     {
         return $this->getParameter('productId');
     }
+
     /**
      * @param $productId string
      *
@@ -31,6 +27,7 @@ class Item extends \Omnipay\Common\Item
     {
         return $this->setParameter('productId', $productId);
     }
+
     /**
      * @return string
      */
@@ -38,6 +35,7 @@ class Item extends \Omnipay\Common\Item
     {
         return $this->getParameter('productType');
     }
+
     /**
      * @param $productType string
      *
@@ -47,6 +45,7 @@ class Item extends \Omnipay\Common\Item
     {
         return $this->setParameter('productType', $productType);
     }
+
     /**
      * @return float
      */
@@ -54,6 +53,7 @@ class Item extends \Omnipay\Common\Item
     {
         return $this->getParameter('vatPercentage');
     }
+
     /**
      * @param $vatPercentage float
      *
