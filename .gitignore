@@ -2,3 +2,4 @@ vendor/*
 .idea/*
 docs/samples/*
 logs/*
+composer.lock
