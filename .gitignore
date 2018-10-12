@@ -1,3 +1,5 @@
 vendor/*
 .idea/*
 docs/samples/*
+logs/*
+src/Debug/*
