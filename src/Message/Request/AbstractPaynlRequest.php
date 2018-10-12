@@ -44,6 +44,9 @@ abstract class AbstractPaynlRequest extends AbstractRequest
      */
     private function getAuthHeader()
     {
+        if (!$this->getTokenCode() || !$this->getApiToken()) {
+            return [];
+        }
         return [
             'Authorization' => 'Basic ' .
                 base64_encode($this->getTokenCode() . ':' . $this->getApiToken())

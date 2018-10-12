@@ -14,7 +14,7 @@ class FetchIssuersRequest extends AbstractPaynlRequest
 {
     public function getData()
     {
-        $this->validate('tokenCode', 'apiToken');
+        return [];
     }
 
     public function sendData($data)

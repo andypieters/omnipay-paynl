@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Date: Tue, 09 Oct 2018 16:19:31 GMT;
+Server: Apache;
+Expires: Mon, 26 Jul 1990 05:00:00 GMT;
+Last-Modified: Tue, 09 Oct 2018 16:19:32 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Content-Length: 99;
+Connection: close;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "0",
+        "errorId": "PAY-412",
+        "errorMessage": "The order has already been captured"
+    }
+}

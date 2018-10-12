@@ -26,14 +26,16 @@ class FetchTransactionResponse extends AbstractPaynlResponse
     /**
      * @return bool
      */
-    public function isOpen(){
+    public function isOpen()
+    {
         return $this->isPending();
     }
 
     /**
      * @return bool
      */
-    public function isVerify(){
+    public function isVerify()
+    {
         return
             isset($this->data['paymentDetails']['stateName']) &&
             strtoupper($this->data['paymentDetails']['stateName']) == 'VERIFY';
@@ -52,7 +54,7 @@ class FetchTransactionResponse extends AbstractPaynlResponse
      */
     public function getTransactionReference()
     {
-        return isset($this->data['transaction']['transactionId']) ? $this->data['transaction']['transactionId'] : null;
+        return $this->request->getTransactionReference();
     }
 
     /**

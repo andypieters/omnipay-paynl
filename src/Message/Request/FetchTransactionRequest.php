@@ -13,6 +13,10 @@ use Omnipay\Paynl\Message\Response\FetchTransactionResponse;
  */
 class FetchTransactionRequest extends AbstractPaynlRequest
 {
+    /**
+     * @return array
+     * @throws \Omnipay\Common\Exception\InvalidRequestException
+     */
     public function getData()
     {
         $this->validate('apiToken', 'tokenCode', 'transactionReference');
@@ -22,10 +26,13 @@ class FetchTransactionRequest extends AbstractPaynlRequest
         ];
     }
 
+    /**
+     * @param array $data
+     * @return \Omnipay\Common\Message\ResponseInterface|FetchTransactionResponse
+     */
     public function sendData($data)
     {
         $responseData = $this->sendRequest('info', $data);
-        $responseData['transaction']['transactionId'] = $data['transactionId'];
         return $this->response = new FetchTransactionResponse($this, $responseData);
     }
 }

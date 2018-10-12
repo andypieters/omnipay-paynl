@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Date: Tue, 09 Oct 2018 18:06:18 GMT;
+Server: Apache;
+Set-Cookie: device_id=f4ee0530bcc84a22fef9fce3d303ffd16698aeaf; expires=Wed, 09-Oct-2019 18:06:18 GMT; path=/; domain=.pay.nl; httponly; language_id=1; expires=Wed, 09-Oct-2019 18:06:18 GMT; path=/; domain=.pay.nl; httponly; paynl_session=c980f5a0e9651fbf4b0ebc6929928a2aed64c558; expires=Tue, 09-Oct-2018 20:06:18 GMT; path=/; domain=.pay.nl; httponly; language_id=1; expires=Wed, 09-Oct-2019 18:06:18 GMT; path=/; domain=.pay.nl; httponly; paynl_session=7f03529e024655992ebc59da247d8fc52285e8df; expires=Tue, 09-Oct-2018 20:06:19 GMT; path=/; domain=.pay.nl; httponly;
+Expires: Mon, 26 Jul 1990 05:00:00 GMT;
+Last-Modified: Tue, 09 Oct 2018 18:06:19 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Content-Length: 58;
+Connection: close;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "1",
+        "errorId": "0",
+        "errorMessage": ""
+    }
+}

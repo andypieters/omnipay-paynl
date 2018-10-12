@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Date: Tue, 09 Oct 2018 16:21:13 GMT;
+Server: Apache;
+Expires: Mon, 26 Jul 1990 05:00:00 GMT;
+Last-Modified: Tue, 09 Oct 2018 16:21:13 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Content-Length: 58;
+Connection: close;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "1",
+        "errorId": "0",
+        "errorMessage": ""
+    }
+}

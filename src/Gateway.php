@@ -3,10 +3,14 @@
 namespace Omnipay\Paynl;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Paynl\Message\Request\CaptureRequest;
+use Omnipay\Paynl\Message\Request\CompletePurchaseRequest;
 use Omnipay\Paynl\Message\Request\FetchIssuersRequest;
 use Omnipay\Paynl\Message\Request\FetchPaymentMethodsRequest;
 use Omnipay\Paynl\Message\Request\FetchTransactionRequest;
 use Omnipay\Paynl\Message\Request\PurchaseRequest;
+use Omnipay\Paynl\Message\Request\RefundRequest;
+use Omnipay\Paynl\Message\Request\VoidRequest;
 
 class Gateway extends AbstractGateway
 {
@@ -114,11 +118,46 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $options
-     * @return \Omnipay\Common\Message\AbstractRequest|\Omnipay\Common\Message\RequestInterface
+     * @return \Omnipay\Common\Message\AbstractRequest|PurchaseRequest
      */
     public function purchase(array $options = array())
     {
         return $this->createRequest(PurchaseRequest::class, $options);
     }
 
+    /**
+     * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest|VoidRequest
+     */
+    public function void(array $options = array())
+    {
+        return $this->createRequest(VoidRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest|CaptureRequest
+     */
+    public function capture(array $options = array())
+    {
+        return $this->createRequest(CaptureRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest|RefundRequest
+     */
+    public function refund(array $options = array())
+    {
+        return $this->createRequest(RefundRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest|CompletePurchaseRequest
+     */
+    public function completePurchase(array $options = array())
+    {
+        return $this->createRequest(CompletePurchaseRequest::class, $options);
+    }
 }

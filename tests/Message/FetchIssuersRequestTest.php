@@ -34,10 +34,5 @@ class FetchIssuersRequestTest extends TestCase
     protected function setUp()
     {
         $this->request = new FetchIssuersRequest($this->getHttpClient(), $this->getHttpRequest());
-
-        $this->request->initialize([
-            'tokenCode' => 'AT-1234-5678',
-            'apiToken' => 'some-token'
-        ]);
     }
 }

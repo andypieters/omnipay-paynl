@@ -1,0 +1,31 @@
+HTTP/1.1 200 OK
+Date: Tue, 09 Oct 2018 19:10:41 GMT;
+Server: Apache;
+Expires: Mon, 26 Jul 1990 05:00:00 GMT;
+Last-Modified: Tue, 09 Oct 2018 19:10:41 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Content-Length: 297;
+Connection: close;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "1",
+        "errorId": "",
+        "errorMessage": ""
+    },
+    "amountRefunded": "87",
+    "description": "We have refunded \u20ac 0,87 by refunding 1 transaction(s) with \u20ac 0,87",
+    "refundedTransactions": {
+        "204846511": {
+            "orderId": "1001309389Xb2588",
+            "amount": "87",
+            "refundAmount": "87"
+        }
+    },
+    "failedTransactions": ""
+}

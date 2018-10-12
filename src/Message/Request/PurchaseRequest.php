@@ -20,6 +20,10 @@ class PurchaseRequest extends AbstractPaynlRequest
      */
     private $addressRegex = '#^([a-z0-9 [:punct:]\']*) ([0-9]{1,5})([a-z0-9 \-/]{0,})$#i';
 
+    /**
+     * @return array
+     * @throws \Omnipay\Common\Exception\InvalidRequestException
+     */
     public function getData()
     {
         $this->validate('tokenCode', 'apiToken', 'serviceId', 'amount', 'clientIp', 'returnUrl');
@@ -33,7 +37,7 @@ class PurchaseRequest extends AbstractPaynlRequest
         ];
 
         $data['transaction'] = [];
-        $data['transaction']['description'] = !empty($this->getDescription()) ? $this->getDescription() : null;
+        $data['transaction']['description'] = $this->getDescription() ?: null;
         $data['transaction']['currency'] = !empty($this->getCurrency()) ? $this->getCurrency() : 'EUR';
         $data['transaction']['orderExchangeUrl'] = !empty($this->getNotifyUrl()) ? $this->getNotifyUrl() : null;
 
@@ -47,7 +51,7 @@ class PurchaseRequest extends AbstractPaynlRequest
 
             $data['enduser'] = [
                 'initials' => $card->getFirstName(), //Pay has no support for firstName, but some methods require full name. Conversion to initials is handled by Pay.nl based on the payment method.
-                'leasName' => $card->getLastName(),
+                'lastName' => $card->getLastName(),
                 'gender' => $card->getGender(), //Should be inserted in the CreditCard as M/F
                 'dob' => $card->getBirthday('d-m-Y'),
                 'phoneNumber' => $card->getPhone(),
@@ -80,7 +84,7 @@ class PurchaseRequest extends AbstractPaynlRequest
                 'orderData' => array_map(function ($item) {
                     /** @var Item $item */
                     $data = [
-                        'description' => $item->getDescription(),
+                        'description' => $item->getName() ?: $item->getDescription(),
                         'price' => round($item->getPrice() * 100),
                         'quantity' => $item->getQuantity(),
                         'vatCode' => 0,
@@ -105,6 +109,10 @@ class PurchaseRequest extends AbstractPaynlRequest
         return $data;
     }
 
+    /**
+     * @param array $data
+     * @return \Omnipay\Common\Message\ResponseInterface|PurchaseResponse
+     */
     public function sendData($data)
     {
         $responseData = $this->sendRequest('start', $data);
