@@ -5,8 +5,7 @@ sudo: false
 # whitelist for building branches
 branches:
   only:
-  - master
-  - stable
+  - v3
 
 matrix:
   include:
