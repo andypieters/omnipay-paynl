@@ -2,7 +2,6 @@
 
 namespace Omnipay\Paynl\Test\Message;
 
-
 use Omnipay\Paynl\Message\Request\CompletePurchaseRequest;
 use Omnipay\Paynl\Message\Response\CompletePurchaseResponse;
 use Omnipay\Tests\TestCase;
@@ -42,6 +41,36 @@ class CompletePurchaseRequestTest extends TestCase
 
         $this->assertEquals(1, $response->getAmount(), 'Amount should be 1 USD');
         $this->assertEquals('USD', $response->getCurrency(), 'Amount should be 1 USD');
+    }
+    public function testReturn(){
+        $transactionId = uniqid();
+        $_GET['orderId'] = $transactionId;
+
+        $data = $this->request->getData();
+
+        $this->assertEquals($transactionId, $data['transactionId']);
+
+        //unset to prevent influencing other tests
+        unset($_GET['orderId']);
+    }
+    public function testExchange(){
+        $transactionId = uniqid();
+        $_REQUEST['order_id'] = $transactionId;
+
+        $data = $this->request->getData();
+
+        $this->assertEquals($transactionId, $data['transactionId']);
+
+        //unset to prevent influencing other tests
+        unset($_REQUEST['order_id']);
+    }
+
+    /**
+     * @expectedException Omnipay\Common\Exception\InvalidRequestException
+     */
+    public function testNoTransactionId(){
+
+        $this->request->getData();
     }
 
     protected function setUp()

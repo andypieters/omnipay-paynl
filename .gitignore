@@ -1,5 +1,6 @@
 vendor/*
 .idea/*
-docs/samples/*
+samples/*
 logs/*
 composer.lock
+build/*

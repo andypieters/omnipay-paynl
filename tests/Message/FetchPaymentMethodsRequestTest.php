@@ -31,6 +31,19 @@ class FetchPaymentMethodsRequestTest extends TestCase
         $this->assertContainsOnlyInstancesOf(PaymentMethod::class, $paymentMethods);
     }
 
+    public function testSendError()
+    {
+        $this->setMockHttpResponse('FetchPaymentMethodsError.txt');
+
+        $response = $this->request->send();
+
+        $this->assertInstanceOf(FetchPaymentMethodsResponse::class, $response);
+        $this->assertFalse($response->isSuccessful());
+
+        $this->assertNotEmpty($response->getMessage());
+        $this->assertNull($response->getPaymentMethods());
+    }
+
     protected function setUp()
     {
         $this->request = new FetchPaymentMethodsRequest($this->getHttpClient(), $this->getHttpRequest());
