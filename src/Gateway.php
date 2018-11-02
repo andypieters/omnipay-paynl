@@ -29,9 +29,9 @@ class Gateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return [
-            'tokenCode' => '',
-            'apiToken' => '',
-            'serviceId' => ''
+            'tokenCode' => null,
+            'apiToken' => null,
+            'serviceId' => null
         ];
     }
 
