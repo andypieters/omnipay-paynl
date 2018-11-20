@@ -55,6 +55,14 @@ class PurchaseRequestTest extends TestCase
         $this->assertEquals('USD', $data['transaction']['currency']);
     }
 
+    public function testLanguage(){
+        $this->request->setLanguage('NL');
+        $data = $this->request->getData();
+
+        $this->assertArrayHasKey('enduser', $data);
+        $this->assertEquals('NL', $data['enduser']['language']);
+    }
+
     public function testWithCardOnlyShipping(){
         $arrCard = $this->getValidCard();
 
