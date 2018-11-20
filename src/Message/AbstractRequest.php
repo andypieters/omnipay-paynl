@@ -27,6 +27,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('serviceId', $value);
     }
 
+    /**
+     * @param  string $value
+     *
+     * @return $this
+     */
+    public function setLanguage($value)
+    {
+        return $this->setParameter('language', $value);
+    }
+
     protected function sendRequest($method, $endpoint, array $data = array())
     {
         $data['token']     = $this->getApitoken();
@@ -53,6 +63,14 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getServiceId()
     {
         return $this->getParameter('serviceId');
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->getParameter('language');
     }
 
 }
